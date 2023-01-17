@@ -1,0 +1,165 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                APPENDIX A: GLOSSARY OF EQUATIONS                                        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Appendix: Glossary of Equations}
+    \begin{flalign}
+        &&\Aboxed{\phi_{bi} &= \frac{kT}{q} \cdot ln\;\bigg( \frac{N_D \cdot N_A}{{n_i}^2} \bigg)}
+        &&\textit{Built-in potential, $PN$-junction}
+        \label{eq:phi_bi}
+    \end{flalign}
+
+    \begin{flalign}
+        &&\Aboxed{W_{dep} &= \sqrt{\frac{2\epsilon_s \left(\phi_{bi} - V_{applied}\right)}{q}
+                        \cdot \Bigg( \frac{1}{N_A} + \frac{1}{N_D} \Bigg)}}
+        &&\textit{Depletion region width, total}
+        \label{eq:total_dep}
+    \end{flalign}        
+
+    \begin{flalign}
+        &&\Aboxed{C_{dep} &= A \left(\frac{\epsilon_s}{W_{dep}}\right)}
+        &&\textit{Junction capacitance}
+        \label{eq:junc_cap}
+    \end{flalign}
+
+    \begin{flalign}
+        &&\Aboxed{I_{DS,sat} &= \left(\frac{W}{2L}\right) \mu_n\,C_{ox}
+                         {\big(V_{GS} - V_{T_n}\big)}^2 (1 + \lambda V_{DS})}
+        &&\textit{$NMOS$ saturation current}
+        \label{eq:mosfet_ids_nmos_sat}\\[0.25cm]
+        &&\Aboxed{I_{DS,tri} &= \left(\frac{W}{L}\right) \mu_n\,C_{ox}
+                            \left(V_{GS} - V_{T_n} - \frac{V_{DS}}{2}\right) V_{DS}}
+        &&\textit{$NMOS$ triode current}
+        \label{eq:mosfet_ids_nmos_tri}\\[0.25cm]
+        &&\Aboxed{I_{SD,sat} &= \left(\frac{W}{2L}\right) \mu_p\,C_{ox}
+                         {\big(V_{SG} - \left|V_{T_p}\right|\big)}^2 (1 + \lambda V_{SD})}
+        &&\textit{$PMOS$ saturation current}
+        \label{eq:mosfet_ids_pmos_sat}\\[0.25cm]
+        &&\Aboxed{I_{SD,tri} &= \left(\frac{W}{L}\right) \mu_p\,C_{ox}
+                            \left(V_{SG} - \left|V_{T_p}\right| - \frac{V_{SD}}{2}\right) V_{SD}}
+        &&\textit{$PMOS$ triode current}
+        \label{eq:mosfet_ids_pmos_tri}
+    \end{flalign}
+
+    \begin{flalign}
+        &&\Aboxed{r_o &= \frac{1}{\frac{W\,\mu\,C_{ox}}{2L}{(V_{GS} - V_T)}^2\,\lambda}
+        \approx \frac{1}{\lambda\,I_{DS}}}
+        &&\textit{Output resistance for MOSFET}
+        \label{eq:mos_outresistance}
+    \end{flalign}
+
+    \begin{flalign}
+        &&\Aboxed{g_m &= \left(\frac{W}{L}\right)\mu\,C_{ox}(V_{{DS}_{sat}})
+        = \sqrt{\left(\frac{2W}{L}\right)\mu\,C_{ox} I_{DS}}
+        = \frac{2 \cdot I_{DS}}{V_{GS} - V_T}}
+        &&\textit{Transconductance for MOSFET}
+        \label{eq:mos_transconductance}
+    \end{flalign}
+
+    \begin{flalign}
+        &&\Aboxed{V_{GS} = V_T + \sqrt{\frac{2\,I_{DS}}{\frac{W}{L} \mu C_{ox}}} = V_T + V_{OD}}
+        &&\textit{Gate-source condition, diode-connected MOSFET}
+        \label{eq:mos_gate_cond}
+    \end{flalign}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                APPENDIX B: GLOSSARY OF TABLES                                           %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Appendix: Glossary of Tables}
+    \begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{20pt}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Transistor Type}  &  \textbf{Cut-off} & \textbf{Triode} & \textbf{Saturation}\\
+        \hline
+        \textit{NMOS} & $V_{GS} \leq V_{T_n}$
+                        & $V_{DS} \leq V_{GS} - V_{T_n}$
+                        & $V_{DS} > V_{GS} - V_{T_n}$\\
+        \hline
+        \textit{PMOS} & $V_{SG} \leq \left|V_{T_p}\right|$
+                        & $V_{SD} \leq V_{SG} - \left|V_{T_p}\right|$
+                        & $V_{SD} > V_{SG} - \left|V_{T_p}\right|$\\
+        \hline
+    \end{tabular}
+    \caption{Conditions for MOSFET regions of operation.
+    \label{tab:mosfet_op}} 
+    \end{table}
+
+    \begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{20pt}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Description}  &  \textbf{Symbol} & \textbf{Value}\\
+        \hline
+        Elementary charge & $q$ & $\num{1.60218e-19}\,C$\\
+        \hline
+        Electron volt & $eV$ & $\num{1.60218e-19}\,J$\\
+        \hline
+        Boltzmann's constant & $k$ & $\num{1.38066e-23}\,J/K$\\
+        \hline
+        Free electron mass & $m_0$ & $\num{9.1095e-31}\,kg$\\
+        \hline
+        Permittivity in vacuum & $\epsilon_0$ & $\num{8.85418e-12}\,F/m$\\
+        \hline
+        Planck's constant & $h$ & $\num{6.62617e-34}\,J \cdot s$\\
+        \hline
+        Reduced Planck's constant ($h/2\pi$) & $\hbar$ & $\num{1.05458e-34}\,J \cdot s$\\
+        \hline
+        Speed of light in vacuum & $c$ & $\num{2.99792e8}\,m/s$\\
+        \hline
+        Thermal voltage at $T=300^{\circ}K$ & $kT/q$ & $0.0259\,V$\\
+        \hline
+        Wavelength of 1-$eV$ photon & $\lambda$ & $1.23977\,\mu m$\\
+        \hline
+    \end{tabular}
+    \caption{Physical constants.
+    \label{tab:phys_const}} 
+    \end{table}
+\newpage
+    \begin{table}[H]
+    \centering
+    \setlength{\tabcolsep}{20pt}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Quantity}  &  \textbf{Symbol} & \textbf{Value/Dimension}\\
+        \hline
+        Meter & $m$ & $1\,m = 10^2\,cm$\\
+        \hline
+        Millimeter & $mm$ & $1\,mm = 10^{-1}\,cm = 10^{-3}\,m$\\
+        \hline
+        Micrometer, micron & $\mu m$ & $1\,\mu m = 10^4\,\text{\AA} = 10^3\,mm = 10^{-4}\,cm$\\
+        \hline
+        Nanometer & $nm$ & $1\,nm = 10\,\text{\AA} = 10^{-3}\,\mu m = 10^{-7}\,cm$\\
+        \hline
+        Angstrom & $\text{\AA}$ & $1\,\text{\AA} = 10^{-4}\,\mu m = 10^{-8}\,cm = 10^{-10}\,m$\\
+        \hline
+        Electron volt & $eV$ & $1\,eV = \num{1.60218e-19}\,J$\\
+        \hline
+        Electric charge (Coulomb) & $C$ & $A \cdot s$\\
+        \hline
+        Current (Ampere) & $A$ & $C/s$\\
+        \hline
+        Frequency (Hertz) & $Hz$ & $1/s$\\
+        \hline
+        Energy (Joule) & $J$ & $N \cdot m$\\
+        \hline
+        Power (Watt) & $W$ & $J/s$\\
+        \hline
+        Potential (Volt) & $V$ & $J/C$\\
+        \hline
+        Conductance (Siemens) & $S$ & $A/V$\\
+        \hline
+        Resistance (Ohm) & $\Omega$ & $V/A$\\
+        \hline
+        Capacitance (Farad) & $F$ & $C/V$\\
+        \hline
+    \end{tabular}
+    \caption{Unit conversions.
+    \label{tab:unit_conv}} 
+    \end{table}
+\newpage

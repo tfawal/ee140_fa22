@@ -1,0 +1,194 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           PACKAGES                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt, fleqn]{article}
+\usepackage{amsmath, amsfonts, amsthm, amssymb, graphicx, enumitem, mathtools, MnSymbol, relsize, cancel}
+\usepackage{siunitx}
+\DeclareSIUnit\angstrom{\text{\AA}}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{pythontex}
+\usepackage{listings}
+\usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\hypersetup{colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{margin=1in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           REFERENCE FILE                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[export]{adjustbox}
+\graphicspath{{images/}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                          PREPARE TITLE AND ABSTRACT                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title {
+    \normalsize{UC Berkeley}\\
+    \large{{EE140: Analog Integrated Circuit Devices\\Fall 2022\\Professor Ricky Muller\\}}
+    \vspace{0.5ex}
+    \Huge{Final Project}
+    \vspace{0.5ex}
+}
+\addbibresource{references.bib}
+\author{Tarik Fawal}
+\date{5 December 2022}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}{@{}m{0pt}@{}}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           GENERATE TITLE                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\tableofcontents
+\flushbottom
+    \section*{Preface}
+        \textit{\emph{This project report was created using \LaTeX.  The answers to questions were obtained through the course website, notes, textbook, and lecture videos.  I pledge that I have not plagiarized my solutions in any way, and the work presented here is my own.}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                              OVERVIEW                                                   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Overview}
+\subsection{Design Specifications}
+    The amplifier was designed according to the specifications listed below.\\[0.5cm]
+    \begin{table}[H]
+        \centering
+        \setlength{\tabcolsep}{4pt}
+        \renewcommand{\arraystretch}{2}
+        \begin{tabular}{|l|c|}
+            \hline
+            \textbf{Technology} & Gpdk045\\
+            \hline
+            \textbf{Power Supplies} & GND ($0V$), VDDL ($< 1.1\,V$), VDDH ($< 1.8\,V$)\\
+            \hline
+            \textbf{Closed Loop DC Gain} & $2$\\
+            \hline
+            \textbf{Load} & $800\,\Omega$, $30\,pF$ (output at capacitor)\\
+            \hline
+            \textbf{Settling Time = $max\{{T_{settle}}_{rise}, {T_{settle}}_{fall}\}$\footnote{Settling time is defined as the maximum of the rising and falling settling times for a $1.4\,V$ output step.}} & To be calculated for $1.4\,V$ output step rising and falling\\
+            \hline
+            \textbf{Total Error} & $\leq 0.2\,\%$\\
+            \hline
+            \textbf{Power Consumption} & $\leq 0.75\,mW$\\
+            \hline
+            \textbf{Output Voltage Swing} & $\geq 1.4\,V$\\
+            \hline
+            \textbf{Maximum Current Mirror Ratio} & $20$\\
+            \hline
+            \textbf{Maximum Total Capacitance\footnote{Defined as total capacitance of explicit capacitors added to the design. This excludes the load and the feedback capacitors.}} & $2\;pF$\\
+            \hline
+            \textbf{Maximum Total Resistance} & $100\,M\Omega$\\
+            \hline
+            \textbf{CMRR at DC} & $\geq 65\,dB$\\
+            \hline
+            \textbf{PSRR at DC} & $\geq 50\,dB$\\
+            \hline
+            \textbf{Phase Margin} & $\geq {45}^\circ$\\
+            \hline
+            \textbf{Figure of Merit (FoM) to Maximize} & $\mathlarger{\frac{{10}^{-9}}{T_{settle} \times P_{total}}}$\\
+            \hline
+        \end{tabular}
+        \caption{Table of required specifications the amplifier is expected to reach.
+        \label{tab:specs1}} 
+    \end{table}
+\subsection{Specifications of Finished Amplifier}
+    The resulting specifications of the final amplifier are listed below.\\[0.5cm]
+    \begin{table}[H]
+        \centering
+        \setlength{\tabcolsep}{4pt}
+        \renewcommand{\arraystretch}{2}
+        \begin{tabular}{|l|c|}
+            \hline
+            \textbf{Technology} & Gpdk045\\
+            \hline
+            \textbf{Power Supplies} & GND ($0V$), VDDL ($< 1.1\,V$), VDDH ($< 1.8\,V$)\\
+            \hline
+            \textbf{Closed Loop DC Gain} & $2$\\
+            \hline
+            \textbf{Load} & $800\,\Omega$, $30\,pF$ (output at capacitor)\\
+            \hline
+            \textbf{Settling Time = $max\{{T_{settle}}_{rise}, {T_{settle}}_{fall}\}$\footnote{Settling time is defined as the maximum of the rising and falling settling times for a $1.4\,V$ output step.}} & To be calculated for $1.4\,V$ output step rising and falling\\
+            \hline
+            \textbf{Total Error} & $\leq 0.2\,\%$\\
+            \hline
+            \textbf{Power Consumption} & $\leq 0.75\,mW$\\
+            \hline
+            \textbf{Output Voltage Swing} & $\geq 1.4\,V$\\
+            \hline
+            \textbf{Maximum Current Mirror Ratio} & $20$\\
+            \hline
+            \textbf{Maximum Total Capacitance\footnote{Defined as total capacitance of explicit capacitors added to the design. This excludes the load and the feedback capacitors.}} & $2\;pF$\\
+            \hline
+            \textbf{Maximum Total Resistance} & $100\,M\Omega$\\
+            \hline
+            \textbf{CMRR at DC} & $\geq 65\,dB$\\
+            \hline
+            \textbf{PSRR at DC} & $\geq 50\,dB$\\
+            \hline
+            \textbf{Phase Margin} & $\geq {45}^\circ$\\
+            \hline
+            \textbf{Figure of Merit (FoM) to Maximize} & $\mathlarger{\frac{{10}^{-9}}{T_{settle} \times P_{total}}}$\\
+            \hline
+        \end{tabular}
+        \caption{Table of results.
+        \label{tab:specs2}} 
+    \end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     SCHEMATIC                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Schematic of Amplifier}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                     OPERATION                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Description of Circuit Operation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                               DESIGN                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Design}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      APPROACH                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Design Approach}
+% add some of the derived equations here as a prologue
+I decided to begin with a basic 2-stage CMOS amplifier.  My initial schematic is below.\\[0.25cm]
+% \includegraphics[scale=0.15, center]{null.PNG}
+I wanted to start by sizing the transistors based on the intrinsic gain of each stage and the $g_m / I_D$ using the LUT's from Matlab.  I decided that a minimum $g_m / I_D$ of 10 would be a good starting point, and an intrinsic gain that facilitated using a reasonable channel length.  The static gain equation above has the intrinsic gain of the amplifier as its only unknown, so I used that equation, and split the static gain and dynamic gain error evenly, because the also seemed like a good starting point.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                      EQUATIONS                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Design Equations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                    METHODOLOGY                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\subsection{Design Methodology}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                 TRANSISTOR / BIAS SUMMARY                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Transistor and Bias Summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                SPECIFICATIONS                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Table of Specifications}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                        DISCUSSION                                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Discussion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                        CONCLUSION                                                       %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Conclusion}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           END OF DOCUMENT                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}

@@ -1,0 +1,187 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           PACKAGES                                                      %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[12pt, fleqn]{article}
+\usepackage{amsmath, amsfonts, amsthm, amssymb, graphicx, enumitem, mathtools, MnSymbol, relsize, cancel}
+\usepackage{siunitx}
+\DeclareSIUnit\angstrom{\text{\AA}}
+\usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{biblatex}
+\usepackage{pythontex}
+\usepackage{listings}
+\usepackage[pdftex,pdfpagelabels,bookmarks,hyperindex,hyperfigures]{hyperref}
+\hypersetup{colorlinks=true,allcolors=blue}
+\usepackage{hypcap}
+\usepackage{float}
+\usepackage{geometry}
+\geometry{margin=1in}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           REFERENCE FILE                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[export]{adjustbox}
+\graphicspath{{images/}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                          PREPARE TITLE AND ABSTRACT                                     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title {
+    \normalsize{UC Berkeley}\\
+    \large{{EE140: Analog Integrated Circuit Devices\\Fall 2022\\Professor Ricky Muller\\}}
+    \vspace{0.5ex}
+    \Huge{Homework 9}
+    \vspace{0.5ex}
+}
+\addbibresource{references.bib}
+\author{Tarik Fawal}
+\date{4 November 2022}
+\usepackage{array}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{N}{@{}m{0pt}@{}}
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           GENERATE TITLE                                                %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\maketitle
+\tableofcontents
+\flushbottom
+    \section*{Preface}
+        \textit{\emph{This homework submission was created using \LaTeX.  The answers to questions were obtained through the course website, notes, textbook, and lecture videos.  I pledge that I have not plagiarized my solutions in any way, and the work presented here is my own.  References to any sources of material used in the solutions to this problem set are included at the end of this document.}}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           QUESTION 1                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{PSRR of the Two-Stage Amplifier}
+\includepdf[pages=1-15]{Hw9_140.PDF}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           QUESTION 2                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Miller Compensation of Two-Stage Amplifiers}
+\includepdf[pages=16-26]{Hw9_140.PDF}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           QUESTION 3                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Calculating Settling Errors}
+    \begin{enumerate}[label=(\alph*)]
+        %%%%%%%%%%%%%%%%%%%
+        %    PART A       %
+        %%%%%%%%%%%%%%%%%%%
+        \item
+        {
+        Below is the code used for this part:\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3a_code1.PNG}\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3a_code2.PNG}\\[0.25cm]
+        \newpage
+        Below is the plot and settling times:\\[0.25cm]
+        \includegraphics[scale=0.35, center]{p3a_plot.PNG}\\[0.25cm]
+        \includegraphics[scale=0.65, center]{p3a_settle.PNG}\\[0.25cm]
+        }
+        %%%%%%%%%%%%%%%%%%%
+        %    PART B       %
+        %%%%%%%%%%%%%%%%%%%
+        \newpage
+        \item
+        {
+        Below is the code used for this part:\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3b_code1.PNG}\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3b_code2.PNG}\\[0.25cm]
+        \newpage
+        Below is the plot and settling times:\\[0.25cm]
+        \includegraphics[scale=0.35, center]{p3b_plot.PNG}\\[0.25cm]
+        \includegraphics[scale=0.65, center]{p3b_settle.PNG}\\[0.25cm]
+        }
+        %%%%%%%%%%%%%%%%%%%
+        %    PART C       %
+        %%%%%%%%%%%%%%%%%%%
+        \newpage
+        \item
+        {
+        Below is a table of the results.\\[0.25cm]
+        \begin{table}[H]
+            \centering
+            \setlength{\tabcolsep}{20pt}
+            \renewcommand{\arraystretch}{1.5}
+            \begin{tabular}{|l|c|c|}
+                \hline
+                \textbf{Error Margin} & \textit{Settling Time for Part (a)} & \textit{Settling Time for Part (b)}\\
+                \hline
+                \textit{10\%} & $36.81\,ns$ & $363.87\,ns$\\
+                \hline
+                \textit{1\%} & $73.41\,ns$ & $705.94\,ns$\\
+                \hline
+                \textit{0.1\%} & $110.02\,ns$ & $931.99\,ns$\\
+                \hline
+            \end{tabular}
+        \end{table}
+        The times all increased by approximately a factor of 10 when the gain was decreased.  I consider this to be a significant increase.  The shorter settling time is much closer to an ideal step response, whereas the longer settling time begins to look like a charging capacitor.\\[0.25cm]
+        The reason that the settling time decreases with increasing gain, is because it takes much less input voltage to reach the final (ideal) level.  Another way to look at it is that a higher gain means a larger unity gain, and this results in a faster response time.
+        }
+        %%%%%%%%%%%%%%%%%%%
+        %    PART D       %
+        %%%%%%%%%%%%%%%%%%%
+        \newpage
+        \item
+        {
+        Below is the code used for this part:\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3d_code1.PNG}\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3d_code2.PNG}\\[0.25cm]
+        \newpage
+        \includegraphics[scale=0.3, center]{p3d_code3.PNG}\\[0.25cm]
+        \includegraphics[scale=0.3, center]{p3d_code4.PNG}\\[0.25cm]
+        \newpage
+        Below is the plots and settling times:\\[0.25cm]
+        \includegraphics[scale=0.35, center]{p3d_plot.PNG}\\[0.25cm]
+        \includegraphics[scale=0.425, center]{p3d_settle.PNG}\\[0.25cm]
+        }
+        %%%%%%%%%%%%%%%%%%%
+        %    PART E       %
+        %%%%%%%%%%%%%%%%%%%
+        \newpage
+        \item
+        {
+        Below is the code used to find the optimal phase margins for each percent error.\\[0.25cm]
+        \includegraphics[scale=0.45, center]{p3e_code1.PNG}\\[0.25cm]
+        \includegraphics[scale=0.45, center]{p3e_code2.PNG}\\[0.25cm]
+        Below is the snapshot of the results, which took about 5 minutes to run.\\[0.25cm]
+        \includegraphics[scale=0.45, center]{p3e_res.PNG}\\[0.25cm]
+        Below is a table of the results.\\[0.25cm]
+        \begin{table}[H]
+            \centering
+            \setlength{\tabcolsep}{20pt}
+            \renewcommand{\arraystretch}{1.5}
+            \begin{tabular}{|l|c|}
+                \hline
+                \textbf{Error Margin}  &  \textit{Optimal Phase Margin}\\
+                \hline
+                \textit{10\%} & $\approx 62^\circ$\\
+                \hline
+                \textit{1\%} & $\approx 71^\circ$\\
+                \hline
+                \textit{0.1\%} & $\approx 74^\circ$\\
+                \hline
+            \end{tabular}
+        \end{table}
+        \underline{\textbf{\textit{Comments}}}\\[0.25cm]
+        It is interesting to note that the optimal phase margin increases as the error margin decreases.  This is because with a larger error margin, the oscillations from the circuit ringing are still within the bounds of error.  Thus, the settling time occurs sooner than it would with a damped response.
+        }
+    \end{enumerate}
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                             APPENDIX                                                    %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\appendix
+\include{appendix}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           BIBLIOGRAPHY                                                  %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\addcontentsline{toc}{section}{References}
+\emergencystretch=2em
+\nocite{*}
+\printbibliography
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                           END OF DOCUMENT                                               %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\end{document}
